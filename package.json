@@ -2,18 +2,39 @@
   "name": "generate-type-cli",
   "version": "1.0.0",
   "description": "Generate interface and type",
-  "main": "index.js",
   "scripts": {
-    "zbanx-proto2api-test": "node ./bin/index.js --debug --dir=./api --output=./services",
+    "generate-type-cli-test": "node ./bin/index.js --debug --dir=./resources --output=./services",
     "swagger": "node ./bin/index.js --debug -d ./openapi.json -o ./service",
     "help": "node ./bin/index.js --debug --help",
     "build": "tsc",
     "lint": "eslint",
     "dev": "tsc --watch"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
+  "bin": {
+    "zbanx-proto2api": "./bin/index.js"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --quiet"
+    ]
+  },
   "keywords": ["cli", "proto", "ts"],
   "author": "",
   "license": "ISC",
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=7"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
