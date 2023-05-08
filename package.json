@@ -1,12 +1,45 @@
 {
   "name": "generate-type-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "Generate interface and type",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "zbanx-proto2api-test": "node ./bin/index.js --debug --dir=./api --output=./services",
+    "swagger": "node ./bin/index.js --debug -d ./openapi.json -o ./service",
+    "help": "node ./bin/index.js --debug --help",
+    "build": "tsc",
+    "lint": "eslint",
+    "dev": "tsc --watch"
   },
-  "keywords": [],
+  "keywords": ["cli", "proto", "ts"],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "@umijs/openapi": "^1.7.0",
+    "chalk": "4.1.0",
+    "eslint": "^8.18.0",
+    "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
+    "lodash": "^4.17.21",
+    "prettier": "^2.5.1",
+    "protobufjs": "^6.11.2",
+    "ts-node": "^10.7.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/chalk": "^2.2.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.5.2",
+    "@types/node": "16.0.0",
+    "@types/prettier": "^2.4.3",
+    "@types/yargs": "^17.0.10",
+    "babel-jest": "^28.1.2",
+    "jest": "^28.1.2",
+    "typescript": "^5.0.4"
+  }
 }
