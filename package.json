@@ -1,6 +1,6 @@
 {
   "name": "generate-type-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Generate interface and type",
   "scripts": {
     "generate-type-cli-test": "node ./bin/index.js --debug --dir=./resources --output=./",
