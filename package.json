@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Generate interface and type",
   "scripts": {
-    "generate-type-cli-test": "node ./bin/index.js --debug --dir=./resources --output=./services",
+    "generate-type-cli-test": "node ./bin/index.js --debug --dir=./resources --output=./",
     "swagger": "node ./bin/index.js --debug -d ./openapi.json -o ./service",
     "help": "node ./bin/index.js --debug --help",
     "build": "tsc",
@@ -13,7 +13,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "bin": {
-    "proto2api": "./bin/index.js"
+    "proto2ts": "./bin/index.js"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

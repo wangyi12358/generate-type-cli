@@ -14,7 +14,7 @@ export type GenCodeOptions = {
 export function genCode(options: GenCodeOptions): {
     [filePath: string]: [code: string]
 } {
-  const { apiFileMap, requestName, apiPrefix = '', requestPath } = options
+  const { apiFileMap, requestName, requestPath } = options
   const result = {};
 
   for (const fileName in apiFileMap) {
@@ -50,11 +50,10 @@ export function genCode(options: GenCodeOptions): {
       messageMap[k.name] = 1;
     });
 
-    console.log('apiFile=', apiFile.apiModules[0].functions)
-    // return;
-    // 生成typings.d.ts
     const typingsCode = format(
-      `${genType(apiFile, messageMap)}\n${genRequest(apiFile, requestName, apiPrefix, messageMap)}`
+      `import { Observable } from 'rxjs';
+      ${genType(apiFile, messageMap)}
+      ${genRequest(apiFile)}`
     )
     const isTsFile = apiFile.outputPath.endsWith('.ts');
     if (isTsFile) {

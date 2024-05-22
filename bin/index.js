@@ -9,7 +9,7 @@ const cli = yargs(arg)
 
 const args = cli
   .version(pkg.version)
-  .usage('Usage: generate-type-cli <options>')
+  .usage('Usage: proto2ts <options>')
   .alias('h', 'help')
   .alias('v', 'version')
   .help()

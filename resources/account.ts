@@ -1,5 +1,6 @@
 /** @format */
 
+import { Observable } from 'rxjs';
 // This is code generated automatically by the zbanx proto2api, please do not modify
 
 export interface AccountRelation {
@@ -146,20 +147,52 @@ export interface UpdateAccountPreRelationRequest {
   relation: string;
 }
 
+export const AccountServiceName = 'AccountService';
+
 export interface AccountService {
-  GetAccount: (request: GetAccountRequest) => GetAccountReply;
-  ListAccount: (request: ListAccountRequest) => ListAccountReply;
-  FreezeAccount: (request: FreezeAccountRequest) => {};
-  SetAsEmployeeAccount: (request: SetAsEmployeeAccountRequest) => {};
-  UpdateAccountPreRelation: (request: UpdateAccountPreRelationRequest) => {};
+  getAccount: (request: GetAccountRequest) => Promise<GetAccountReply>;
+  listAccount: (request: ListAccountRequest) => Promise<ListAccountReply>;
+  freezeAccount: (request: FreezeAccountRequest) => Promise<{}>;
+  setAsEmployeeAccount: (request: SetAsEmployeeAccountRequest) => Promise<{}>;
+  updateAccountPreRelation: (
+    request: UpdateAccountPreRelationRequest
+  ) => Promise<{}>;
   // 内部账号管理
-  GetEmployeeAccount: (request: GetAccountRequest) => GetEmployeeAccountReply;
-  ListEmployeeAccount: (
+  getEmployeeAccount: (
+    request: GetAccountRequest
+  ) => Promise<GetEmployeeAccountReply>;
+  listEmployeeAccount: (
     request: ListEmployeeAccountRequest
-  ) => ListEmployeeAccountReply;
-  FreezeEmployeeAccount: (request: FreezeAccountRequest) => {};
-  CreateEmployeeAccount: (
+  ) => Promise<ListEmployeeAccountReply>;
+  freezeEmployeeAccount: (request: FreezeAccountRequest) => Promise<{}>;
+  createEmployeeAccount: (
     request: CreateEmployeeAccountRequest
-  ) => GetEmployeeAccountReply;
-  UpdateEmployeeAccount: (request: UpdateEmployeeAccountRequest) => {};
+  ) => Promise<GetEmployeeAccountReply>;
+  updateEmployeeAccount: (request: UpdateEmployeeAccountRequest) => Promise<{}>;
+}
+
+export interface AccountClient {
+  getAccount: (request: GetAccountRequest) => Observable<GetAccountReply>;
+  listAccount: (request: ListAccountRequest) => Observable<ListAccountReply>;
+  freezeAccount: (request: FreezeAccountRequest) => Observable<{}>;
+  setAsEmployeeAccount: (
+    request: SetAsEmployeeAccountRequest
+  ) => Observable<{}>;
+  updateAccountPreRelation: (
+    request: UpdateAccountPreRelationRequest
+  ) => Observable<{}>;
+  // 内部账号管理
+  getEmployeeAccount: (
+    request: GetAccountRequest
+  ) => Observable<GetEmployeeAccountReply>;
+  listEmployeeAccount: (
+    request: ListEmployeeAccountRequest
+  ) => Observable<ListEmployeeAccountReply>;
+  freezeEmployeeAccount: (request: FreezeAccountRequest) => Observable<{}>;
+  createEmployeeAccount: (
+    request: CreateEmployeeAccountRequest
+  ) => Observable<GetEmployeeAccountReply>;
+  updateEmployeeAccount: (
+    request: UpdateEmployeeAccountRequest
+  ) => Observable<{}>;
 }

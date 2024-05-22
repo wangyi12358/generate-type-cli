@@ -83,3 +83,8 @@ export function getType(k: PropertyType) {
   }
   return type;
 }
+
+// first letter to lowercase
+export function firstUpperCase(str: string) {
+  return str.replace(/^\S/, s => s.toLowerCase());
+}

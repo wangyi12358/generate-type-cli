@@ -1,22 +1,29 @@
 import { ApiFile, ApiFunction, ApiModule } from '../apiInterface';
-import { getType, renderComment } from './utils';
+import { firstUpperCase, getType, renderComment } from './utils';
 
 export function genRequest(
   apiInfo: ApiFile,
 ) {
+  const name = `${apiInfo.apiModules[0].name}Service`;
   return `
   ${renderComment(apiInfo.comment)}
+  export const ${name}Name = '${name}';
+
   ${renderApiModule(apiInfo.apiModules)}
+
+  ${renderApiModule(apiInfo.apiModules, 'Client', 'Observable')}
   `;
 }
 
 export function renderApiModule(
   list: ApiModule[],
+  name = 'Service',
+  returnType = 'Promise',
 ): string {
   return list
     .map(
-      (k) => `${renderComment(k.comment)}export interface ${k.name}Service {
-      ${renderFunction(k.functions)}
+      (k) => `${renderComment(k.comment)}export interface ${k.name}${name} {
+      ${renderFunction(k.functions, returnType)}
     }`
     )
     .join('\n\n');
@@ -53,6 +60,7 @@ export function renderApiModule(
  */
 export function renderFunction(
   list: ApiFunction[],
+  returnType = 'Promise',
 ): string {
 
   return list
@@ -60,7 +68,7 @@ export function renderFunction(
       const reqStr = k.req.type
         ? `request: ${getType(k.req)}`
         : '';
-      return `${renderComment(k.comment)} ${k.name}: (${reqStr}) => ${getType(k.res)}`;
+      return `${renderComment(k.comment)} ${firstUpperCase(k.name)}: (${reqStr}) => ${returnType}<${getType(k.res)}>`;
     })
     .join('\n');
 }
