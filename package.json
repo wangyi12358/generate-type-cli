@@ -1,6 +1,6 @@
 {
   "name": "generate-type-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate interface and type",
   "scripts": {
     "generate-type-cli-test": "node ./bin/index.js --debug --dir=./resources --output=./",
@@ -20,7 +20,11 @@
       "eslint --quiet"
     ]
   },
-  "keywords": ["cli", "proto", "ts"],
+  "keywords": [
+    "cli",
+    "proto",
+    "ts"
+  ],
   "author": "",
   "license": "ISC",
   "files": [
