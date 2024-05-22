@@ -1,5 +1,5 @@
 import { ApiFile } from '../apiInterface';
-import { genRequest } from '../generator/genRequest'
+import { genRequest } from '../generator/genRequest';
 import { format } from '../utils';
 import { genType } from './genType';
 
@@ -50,24 +50,22 @@ export function genCode(options: GenCodeOptions): {
       messageMap[k.name] = 1;
     });
 
+    console.log('apiFile=', apiFile.apiModules[0].functions)
+    // return;
     // 生成typings.d.ts
     const typingsCode = format(
-      genType(apiFile, requestName, messageMap)
-    )
-    // 生成request
-    const requestCode = format(
-      genRequest(apiFile, requestName, apiPrefix, messageMap)
+      `${genType(apiFile, messageMap)}\n${genRequest(apiFile, requestName, apiPrefix, messageMap)}`
     )
     const isTsFile = apiFile.outputPath.endsWith('.ts');
     if (isTsFile) {
       // 生成typings.d.ts
       const modulePath = apiFile.outputPath.substring(0, apiFile.outputPath.lastIndexOf('.'))
-      const requestPath = `${modulePath}/index.ts`;
-      const typingsPath = `${modulePath}/typings.d.ts`;
-      result[typingsPath] = typingsCode
-      result[requestPath] = requestCode
+      // const requestPath = `${modulePath}/index.ts`;
+      const typingsPath = `${modulePath}.ts`;
+      result[typingsPath] = typingsCode;
+      // result[requestPath] = requestCode
     } else {
-      result[apiFile.outputPath] = requestCode
+      // result[apiFile.outputPath] = requestCode
     }
   }
 

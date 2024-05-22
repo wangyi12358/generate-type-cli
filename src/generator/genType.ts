@@ -84,7 +84,7 @@ export function renderInterface(
       if (k.module) {
         str = renderInterfaceModule([k.module], messageMap);
       }
-      str += `${renderComment(k.comment)}interface ${k.name}{
+      str += `${renderComment(k.comment)}export interface ${k.name}{
           ${renderPropertySignature(k.members, messageMap)}
       }`;
       return str;
@@ -94,14 +94,26 @@ export function renderInterface(
 
 export function genType(
   apiInfo: ApiFile,
-  requestName: string,
   messageMap: { [key: string]: 1 }
 ) {
-  const namespace = apiInfo.apiModules?.[0]?.namespace;
+  // const namespace = apiInfo.apiModules?.[0]?.namespace;
+  console.log('messageMap==', apiInfo.interfaces)
   return `// This is code generated automatically by the zbanx proto2api, please do not modify
-  declare namespace ${namespace} {
   ${renderEnum(apiInfo.enums)}
   ${renderInterface(apiInfo.interfaces, messageMap)}
-  }
   `;
 }
+
+
+// 根据 proto service 生成 interface 文件
+// export function genRequest(
+//   apiInfo: ApiFile,
+//   requestName: string,
+//   apiPrefixPath: string,
+//   messageMap: { [key: string]: 1 }
+// ) {
+//   return `// This is code generated automatically by the zbanx proto2api, please do not modify
+//   ${renderImport(apiInfo.imports, messageMap)}
+//   ${renderInterfaceModule(apiInfo.apiModules, messageMap)}
+//   `;
+// }

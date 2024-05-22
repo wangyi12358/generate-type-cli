@@ -13,7 +13,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "bin": {
-    "zbanx-proto2api": "./bin/index.js"
+    "proto2api": "./bin/index.js"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
