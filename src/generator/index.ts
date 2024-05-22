@@ -51,7 +51,10 @@ export function genCode(options: GenCodeOptions): {
     });
 
     const typingsCode = format(
-      `import { Observable } from 'rxjs';
+
+      `// This is code generated automatically by the proto2ts, please do not modify
+      import { Observable } from 'rxjs';
+
       ${genType(apiFile, messageMap)}
       ${genRequest(apiFile)}`
     )

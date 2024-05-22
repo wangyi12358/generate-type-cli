@@ -98,22 +98,7 @@ export function genType(
 ) {
   // const namespace = apiInfo.apiModules?.[0]?.namespace;
   console.log('messageMap==', apiInfo.interfaces)
-  return `// This is code generated automatically by the zbanx proto2api, please do not modify
-  ${renderEnum(apiInfo.enums)}
+  return `${renderEnum(apiInfo.enums)}
   ${renderInterface(apiInfo.interfaces, messageMap)}
   `;
 }
-
-
-// 根据 proto service 生成 interface 文件
-// export function genRequest(
-//   apiInfo: ApiFile,
-//   requestName: string,
-//   apiPrefixPath: string,
-//   messageMap: { [key: string]: 1 }
-// ) {
-//   return `// This is code generated automatically by the zbanx proto2api, please do not modify
-//   ${renderImport(apiInfo.imports, messageMap)}
-//   ${renderInterfaceModule(apiInfo.apiModules, messageMap)}
-//   `;
-// }

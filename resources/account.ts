@@ -1,7 +1,7 @@
 /** @format */
 
+// This is code generated automatically by the proto2ts, please do not modify
 import { Observable } from 'rxjs';
-// This is code generated automatically by the zbanx proto2api, please do not modify
 
 export interface AccountRelation {
   //  @uint32
