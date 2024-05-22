@@ -97,7 +97,6 @@ export function genType(
   messageMap: { [key: string]: 1 }
 ) {
   // const namespace = apiInfo.apiModules?.[0]?.namespace;
-  console.log('messageMap==', apiInfo.interfaces)
   return `${renderEnum(apiInfo.enums)}
   ${renderInterface(apiInfo.interfaces, messageMap)}
   `;
