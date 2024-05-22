@@ -149,7 +149,7 @@ export interface UpdateAccountPreRelationRequest {
 
 export const AccountServiceName = 'AccountService';
 
-export interface AccountService {
+export interface IAccountService {
   getAccount: (request: GetAccountRequest) => Promise<GetAccountReply>;
   listAccount: (request: ListAccountRequest) => Promise<ListAccountReply>;
   freezeAccount: (request: FreezeAccountRequest) => Promise<{}>;
@@ -171,7 +171,7 @@ export interface AccountService {
   updateEmployeeAccount: (request: UpdateEmployeeAccountRequest) => Promise<{}>;
 }
 
-export interface AccountClient {
+export interface IAccountServiceClient {
   getAccount: (request: GetAccountRequest) => Observable<GetAccountReply>;
   listAccount: (request: ListAccountRequest) => Observable<ListAccountReply>;
   freezeAccount: (request: FreezeAccountRequest) => Observable<{}>;

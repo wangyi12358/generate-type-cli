@@ -4,7 +4,7 @@ package api.account.admin.v1;
 
 import "google/protobuf/empty.proto";
 
-service Account {
+service AccountService {
   rpc GetAccount (GetAccountRequest) returns (GetAccountReply);
 
   rpc ListAccount (ListAccountRequest) returns (ListAccountReply);

@@ -4,7 +4,7 @@ import { firstUpperCase, getType, renderComment } from './utils';
 export function genRequest(
   apiInfo: ApiFile,
 ) {
-  const name = `${apiInfo.apiModules[0].name}Service`;
+  const name = `${apiInfo.apiModules[0].name}`;
   return `
   ${renderComment(apiInfo.comment)}
   export const ${name}Name = '${name}';
@@ -17,12 +17,12 @@ export function genRequest(
 
 export function renderApiModule(
   list: ApiModule[],
-  name = 'Service',
+  name = '',
   returnType = 'Promise',
 ): string {
   return list
     .map(
-      (k) => `${renderComment(k.comment)}export interface ${k.name}${name} {
+      (k) => `${renderComment(k.comment)}export interface I${k.name}${name} {
       ${renderFunction(k.functions, returnType)}
     }`
     )
