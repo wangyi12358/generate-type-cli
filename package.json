@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "description": "Generate interface and type",
   "scripts": {
-    "generate-type-cli-test": "node ./bin/index.js --debug --dir=./resources --output=./",
+    "test": "node ./bin/index.js --debug --dir=./resources --output=./",
     "swagger": "node ./bin/index.js --debug -d ./openapi.json -o ./service",
     "help": "node ./bin/index.js --debug --help",
     "build": "tsc",

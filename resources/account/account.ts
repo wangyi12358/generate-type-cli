@@ -1,7 +1,9 @@
 /** @format */
 
 // This is code generated automatically by the proto2ts, please do not modify
+
 import { Observable } from 'rxjs';
+import { User } from '../common/common';
 
 export interface AccountRelation {
   //  @uint32

@@ -4,6 +4,7 @@ import { firstUpperCase, getType, renderComment } from './utils';
 export function genRequest(
   apiInfo: ApiFile,
 ) {
+  if (!apiInfo.apiModules?.length) return '';
   const name = `${apiInfo.apiModules[0].name}`;
   return `
   ${renderComment(apiInfo.comment)}

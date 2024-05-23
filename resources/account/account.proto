@@ -3,6 +3,7 @@ syntax = "proto3";
 package api.account.admin.v1;
 
 import "google/protobuf/empty.proto";
+import "common.proto";
 
 service AccountService {
   rpc GetAccount (GetAccountRequest) returns (GetAccountReply);
@@ -29,6 +30,7 @@ message AccountRelation{
   bool isOwner = 6;
   bool isDefault = 7;
   bool isAgent = 8;
+  common.User user = 9;
 }
 
 message AccountInfo {

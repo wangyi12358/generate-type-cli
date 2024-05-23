@@ -14,24 +14,20 @@ export type GenCodeOptions = {
 export function genCode(options: GenCodeOptions): {
     [filePath: string]: [code: string]
 } {
-  const { apiFileMap, requestName, requestPath } = options
+  const { apiFileMap } = options
   const result = {};
 
   for (const fileName in apiFileMap) {
     const apiFile = apiFileMap[fileName];
 
-    // 如果proto 没有services，就不会生成接口、类型文件
-
-    if (!apiFile.apiModules.length) continue;
-
     // If this is a proto with api calls, need to import the configured request
     apiFile.imports.unshift({
       importClause: [
         {
-          type: requestName,
+          type: 'Observable',
         },
       ],
-      moduleSpecifier: requestPath,
+      moduleSpecifier: 'rxjs',
     });
 
     const messageMap = {};
@@ -53,7 +49,6 @@ export function genCode(options: GenCodeOptions): {
     const typingsCode = format(
 
       `// This is code generated automatically by the proto2ts, please do not modify
-      import { Observable } from 'rxjs';
 
       ${genType(apiFile, messageMap)}
       ${genRequest(apiFile)}`

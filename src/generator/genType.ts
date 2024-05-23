@@ -1,5 +1,5 @@
 import { ApiFile, Enum, EnumMember, Interface, InterfaceModule, PropertySignature } from '../apiInterface';
-import { getType, renderComment } from './utils';
+import { getType, renderComment, renderImport } from './utils';
 
 export function renderEnum(list: Enum[]) {
   const renderMembers = (member: EnumMember) => {
@@ -96,8 +96,8 @@ export function genType(
   apiInfo: ApiFile,
   messageMap: { [key: string]: 1 }
 ) {
-  // const namespace = apiInfo.apiModules?.[0]?.namespace;
-  return `${renderEnum(apiInfo.enums)}
+  return `${renderImport(apiInfo.imports, messageMap)}
+  ${renderEnum(apiInfo.enums)}
   ${renderInterface(apiInfo.interfaces, messageMap)}
   `;
 }
