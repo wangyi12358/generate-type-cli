@@ -1,5 +1,5 @@
+import { snakeCase } from 'lodash';
 import protoJs from 'protobufjs';
-import { isPrototype } from '../utils';
 import {
   ApiModule,
   DependencyType,
@@ -10,7 +10,7 @@ import {
   PropertySignature,
   PropertyType,
 } from '../apiInterface';
-import { snakeCase } from 'lodash'
+import { isPrototype } from '../utils';
 
 export function isEnum(obj) {
   return isPrototype(obj, protoJs.Enum);
@@ -39,6 +39,7 @@ function getGoogleCommon(typeStr): string {
     return '{}';
   }
   if (typeStr === 'google.protobuf.Any') return 'any';
+  if (typeStr === 'google.protobuf.Timestamp') return 'Date';
   return '';
 }
 
