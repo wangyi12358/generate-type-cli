@@ -1,5 +1,5 @@
 import { ApiFile } from '../apiInterface';
-import { genRequest } from '../generator/genRequest'
+import { genRequest } from '../generator/genRequest';
 import { format } from '../utils';
 import { genType } from './genType';
 
@@ -14,24 +14,20 @@ export type GenCodeOptions = {
 export function genCode(options: GenCodeOptions): {
     [filePath: string]: [code: string]
 } {
-  const { apiFileMap, requestName, apiPrefix = '', requestPath } = options
+  const { apiFileMap } = options
   const result = {};
 
   for (const fileName in apiFileMap) {
     const apiFile = apiFileMap[fileName];
 
-    // 如果proto 没有services，就不会生成接口、类型文件
-
-    if (!apiFile.apiModules.length) continue;
-
     // If this is a proto with api calls, need to import the configured request
     apiFile.imports.unshift({
       importClause: [
         {
-          type: requestName,
+          type: 'Observable',
         },
       ],
-      moduleSpecifier: requestPath,
+      moduleSpecifier: 'rxjs',
     });
 
     const messageMap = {};
@@ -50,24 +46,23 @@ export function genCode(options: GenCodeOptions): {
       messageMap[k.name] = 1;
     });
 
-    // 生成typings.d.ts
     const typingsCode = format(
-      genType(apiFile, requestName, messageMap)
-    )
-    // 生成request
-    const requestCode = format(
-      genRequest(apiFile, requestName, apiPrefix, messageMap)
+
+      `// This is code generated automatically by the proto2ts, please do not modify
+
+      ${genType(apiFile, messageMap)}
+      ${genRequest(apiFile)}`
     )
     const isTsFile = apiFile.outputPath.endsWith('.ts');
     if (isTsFile) {
       // 生成typings.d.ts
       const modulePath = apiFile.outputPath.substring(0, apiFile.outputPath.lastIndexOf('.'))
-      const requestPath = `${modulePath}/index.ts`;
-      const typingsPath = `${modulePath}/typings.d.ts`;
-      result[typingsPath] = typingsCode
-      result[requestPath] = requestCode
+      // const requestPath = `${modulePath}/index.ts`;
+      const typingsPath = `${modulePath}.ts`;
+      result[typingsPath] = typingsCode;
+      // result[requestPath] = requestCode
     } else {
-      result[apiFile.outputPath] = requestCode
+      // result[apiFile.outputPath] = requestCode
     }
   }
 

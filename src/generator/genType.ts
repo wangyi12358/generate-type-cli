@@ -1,5 +1,5 @@
 import { ApiFile, Enum, EnumMember, Interface, InterfaceModule, PropertySignature } from '../apiInterface';
-import { getType, renderComment } from './utils';
+import { getType, renderComment, renderImport } from './utils';
 
 export function renderEnum(list: Enum[]) {
   const renderMembers = (member: EnumMember) => {
@@ -84,7 +84,7 @@ export function renderInterface(
       if (k.module) {
         str = renderInterfaceModule([k.module], messageMap);
       }
-      str += `${renderComment(k.comment)}interface ${k.name}{
+      str += `${renderComment(k.comment)}export interface ${k.name}{
           ${renderPropertySignature(k.members, messageMap)}
       }`;
       return str;
@@ -94,14 +94,10 @@ export function renderInterface(
 
 export function genType(
   apiInfo: ApiFile,
-  requestName: string,
   messageMap: { [key: string]: 1 }
 ) {
-  const namespace = apiInfo.apiModules?.[0]?.namespace;
-  return `// This is code generated automatically by the zbanx proto2api, please do not modify
-  declare namespace ${namespace} {
+  return `${renderImport(apiInfo.imports, messageMap)}
   ${renderEnum(apiInfo.enums)}
   ${renderInterface(apiInfo.interfaces, messageMap)}
-  }
   `;
 }

@@ -1,41 +1,42 @@
 import { ApiFile, ApiFunction, ApiModule } from '../apiInterface';
-import { getType, renderComment, renderImport } from './utils';
+import { firstUpperCase, getType, renderComment } from './utils';
 
 export function genRequest(
   apiInfo: ApiFile,
-  requestName: string,
-  apiPrefixPath: string,
-  messageMap: { [key: string]: 1 }
 ) {
-  return `// This is code generated automatically by the zbanx proto2api, please do not modify
+  if (!apiInfo.apiModules?.length) return '';
+  const name = `${apiInfo.apiModules[0].name}`;
+  return `
   ${renderComment(apiInfo.comment)}
-  ${renderImport(apiInfo.imports, messageMap)}
-  ${renderApiModule(apiInfo.apiModules, requestName, apiPrefixPath, messageMap)}
+  export const ${name}Name = '${name}';
+
+  ${renderApiModule(apiInfo.apiModules)}
+
+  ${renderApiModule(apiInfo.apiModules, 'Client', 'Observable')}
   `;
 }
 
 export function renderApiModule(
   list: ApiModule[],
-  apiName: string,
-  apiPrefixPath: string,
-  messageMap: { [key: string]: 1 }
+  name = '',
+  returnType = 'Promise',
 ): string {
-  // return list
-  //   .map(
-  //     (k) => `${renderComment(k.comment)}export namespace ${k.name}{
-  //     ${renderFunction(k.functions, apiName)}
-  //   }`
-  //   )
-  //   .join("\n\n");
-
   return list
     .map(
-      (k) => `
-        ${renderComment(k.comment + '\n' + k.name)}
-        ${renderFunction(k.functions, apiName, apiPrefixPath, messageMap)}
-      `
+      (k) => `${renderComment(k.comment)}export interface I${k.name}${name} {
+      ${renderFunction(k.functions, returnType)}
+    }`
     )
     .join('\n\n');
+
+  // return list
+  //   .map(
+  //     (k) => `
+  //       ${renderComment(k.comment + '\n' + k.name)}
+  //       ${renderFunction(k.functions, apiName, apiPrefixPath, messageMap)}
+  //     `
+  //   )
+  //   .join('\n\n');
 }
 
 /**
@@ -60,40 +61,15 @@ export function renderApiModule(
  */
 export function renderFunction(
   list: ApiFunction[],
-  requestName: string,
-  apiPrefixPath: string,
-  messageMap: { [key: string]: 1 }
+  returnType = 'Promise',
 ): string {
-  const renderReturn = (k: ApiFunction) => {
-    const _url = k.redirectUrl ? k.redirectUrl : k.url;
-    const url = apiPrefixPath ? apiPrefixPath + _url : _url;
-    const paramsStr = k.method === 'get' ? 'params,' : 'data: params,'
-    const methodStr = `method: '${k.method.toUpperCase()}'`
-    if (k.req.type) {
-      return ` return ${requestName}<${getType(
-        k.res,
-      )}>('${url}', {
-          ${paramsStr}
-          ${methodStr}
-        })`;
-    } else {
-      return ` return ${requestName}<${getType(
-        k.res,
-      )}>('${url}', {
-          ${paramsStr}
-          ${methodStr}
-        })`;
-    }
-  };
 
   return list
     .map((k) => {
       const reqStr = k.req.type
-        ? `params: Partial<${getType(k.req)}>`
+        ? `request: ${getType(k.req)}`
         : '';
-      return `${renderComment(k.comment)}export function ${k.name}(${reqStr}){
-            ${renderReturn(k)}
-        }`;
+      return `${renderComment(k.comment)} ${firstUpperCase(k.name)}: (${reqStr}) => ${returnType}<${getType(k.res)}>`;
     })
-    .join('\n\n');
+    .join('\n');
 }

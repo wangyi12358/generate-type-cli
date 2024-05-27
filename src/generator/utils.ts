@@ -70,11 +70,11 @@ export function getProtoType(type: string): string {
 export function getType(k: PropertyType) {
   let type = getProtoType(k.type);
   if (k.dependencyType === DependencyType.CURRENT) {
-    type = `${k.namespace}.${k.type}`
+    type = `${k.type}`
   }
   if (k.dependencyType === DependencyType.EXTERNAL) {
     if (type !== '{}') {
-      type = `${k.namespace}.${k.type}`
+      type = `${k.type}`
     }
   }
   if (k.map) {
@@ -82,4 +82,9 @@ export function getType(k: PropertyType) {
     return `{ [key: ${getProtoType(k.keyType)}]: ${type} }`;
   }
   return type;
+}
+
+// first letter to lowercase
+export function firstUpperCase(str: string) {
+  return str.replace(/^\S/, s => s.toLowerCase());
 }
