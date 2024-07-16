@@ -1,0 +1,293 @@
+syntax = "proto3";
+
+package device;
+
+import "google/protobuf/empty.proto";
+import "base.proto";
+
+message SiteRes {
+  string id = 1;
+  string name = 2;
+  string serialNumber = 3;
+  string tenantId = 4;
+  string userId = 5;
+  string address = 6;
+  string remark = 10;
+  string createdId = 11;
+  string updatedId = 12;
+  string createdAt = 13;
+  string updatedAt = 14;
+  float lat = 15;
+  float lng = 16;
+  string status = 17;
+}
+
+message CreateSiteReq {
+  string name = 1;
+  string serialNumber = 2;
+  string tenantId = 3;
+  string userId = 4;
+  string address = 5;
+  string remark = 6;
+  string createdId = 7;
+  string updatedId = 8;
+  float lat = 9;
+  float lng = 10;
+  string status = 11;
+}
+
+message UpdateSiteReq {
+  string id = 1;
+  string name = 2;
+  string address = 3;
+  string remark = 4;
+  string updatedId = 5;
+}
+
+message SitePageRes {
+  repeated SiteRes list = 1;
+  int32 total = 2;
+}
+
+message SitePageReq {
+  PaginationReq pagination = 1;
+  optional SortReq sort = 2;
+  optional string status = 3;
+  optional string tenantId = 4;
+}
+
+message DevicePageRes {
+  repeated DeviceRes list = 1;
+  int32 total = 2;
+}
+
+message DevicePageReq  {
+  base.PaginationReq pagination = 1;
+  optional base.SortReq sort = 2;
+  optional string tenantId = 3;
+  optional string status = 4;
+}
+
+message CreateDeviceReq {
+  string name = 1;
+  string model = 2;
+  string brand = 3;
+  string company = 4;
+  string contact = 5;
+  string link = 6;
+  float price = 7;
+  string classifyId = 8;
+  string typeId = 9;
+  string remark = 10;
+  string tenantId = 11;
+  string createdId = 12;
+}
+
+message UpdateDeviceReq {
+  string id = 1;
+  string name = 2;
+  string model = 3;
+  string brand = 4;
+  string company = 5;
+  string contact = 6;
+  string link = 7;
+  float price = 8;
+  string remark = 9;
+  string updatedId = 10;
+}
+
+message DeviceRes {
+  string id = 1;
+  string name = 2;
+  string model = 3;
+  string brand = 4;
+  string company = 5;
+  string contact = 6;
+  string link = 7;
+  float price = 8;
+  string classifyId = 9;
+  string typeId = 10;
+  string remark = 11;
+  string tenantId = 12;
+  string createdId = 13;
+  string updatedId = 14;
+  string createdAt = 15;
+  string updatedAt = 16;
+}
+
+message DeviceServiceRelationRes {
+  string id = 1;
+  string deviceId = 2;
+  string serviceId = 3;
+  string createdId = 4;
+  string updatedId = 5;
+  string createdAt = 6;
+  string updatedAt = 7;
+}
+
+message DeviceAttrRes {
+  string id = 1;
+  string deviceId = 2;
+  string key = 3;
+  string value = 4;
+  string createdId = 5;
+  string updatedId = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+}
+
+message CreateInstanceReq {
+  string id = 1;
+  string deviceId = 2;
+  string name = 3;
+  string status = 4;
+  string serialNumber = 5;
+  string address = 6;
+  string createdId = 7;
+}
+
+message UpdateInstanceReq {
+  string id = 1;
+  string name = 2;
+  string address = 3;
+  string updatedId = 4;
+}
+
+message InstanceRes {
+  string id = 1;
+  string deviceId = 2;
+  string name = 3;
+  string status = 4;
+  string serialNumber = 5;
+  string address = 6;
+  string createdId = 7;
+  string updatedId = 8;
+  string createdAt = 9;
+  string updatedAt = 10;
+}
+
+message DeviceInstanceRelationRes {
+  string id = 1;
+  string deviceId = 2;
+  string instanceId = 3;
+  string createdId = 4;
+  string updatedId = 5;
+  string createdAt = 6;
+  string updatedAt = 7;
+}
+
+message InstanceAttrRes {
+  string id = 1;
+  string instanceId = 2;
+  string key = 3;
+  string value = 4;
+  string createdId = 5;
+  string updatedId = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+}
+
+message CreateServiceReq {
+  string serialNumber = 1;
+  string name = 2;
+  string classifyId = 3;
+  string typeId = 4;
+  string remark = 5;
+  string createdId = 6;
+}
+
+message UpdateServiceReq {
+  string id = 1;
+  string name = 2;
+  string remark = 3;
+  string updatedId = 4;
+}
+
+message ServicePageReq {
+  base.PaginationReq pagination = 1;
+  optional base.SortReq sort = 2;
+  optional string status = 3;
+  optional string typeId = 4;
+  optional string classifyId = 5;
+  optional string serialNumber = 6;
+  optional string name = 7;
+}
+
+message ServicePageRes {
+  repeated ServiceRes list = 1;
+  int32 total = 2;
+}
+
+message ServiceRes {
+  string id = 1;
+  string serialNumber = 2;
+  string name = 3;
+  string classifyId = 4;
+  string typeId = 5;
+  string remark = 6;
+  string createdId = 7;
+  string updatedId = 8;
+  string createdAt = 9;
+  string updatedAt = 10;
+}
+
+message ClassifyRes {
+  string id = 1;
+  string name = 2;
+}
+
+message ClassifyListRes {
+  repeated ClassifyRes list = 1;
+}
+
+message TypeRes {
+  string id = 1;
+  string name = 2;
+  string classifyId = 3;
+}
+
+message TypeListRes {
+  repeated TypeRes list = 1;
+}
+
+message EventLogRes {
+  string id = 1;
+  string deviceId = 2;
+  string instanceId = 3;
+  string serviceId = 4;
+  string address = 5;
+  string type = 6;
+  string createdId = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+}
+
+service DeviceService {
+  // site
+  rpc SitePage (SitePageReq) returns (SitePageRes);
+  rpc CreateSite (CreateSiteReq) returns (SiteRes);
+  rpc UpdateSite (UpdateSiteReq) returns (SiteRes);
+
+  // device
+  rpc DevicePage (DevicePageReq) returns (DevicePageRes);
+  rpc CreateDevice (CreateDeviceReq) returns (DeviceRes);
+  rpc UpdateDevice (UpdateDeviceReq) returns (DeviceRes);
+
+  // instance
+  rpc CreateInstance (CreateInstanceReq) returns (InstanceRes);
+  rpc UpdateInstance (InstanceRes) returns (InstanceRes);
+
+  // service
+  rpc ServicePage (ServicePageReq) returns (ServicePageRes);
+  rpc CreateService (CreateServiceReq) returns (ServiceRes);
+  rpc UpdateService (UpdateServiceReq) returns (ServiceRes);
+
+  // classify
+  rpc ClassifyList (google.protobuf.Empty) returns (ClassifyListRes);
+
+  // // type
+  rpc TypeList (google.protobuf.Empty) returns (TypeListRes);
+
+  // event log
+
+}

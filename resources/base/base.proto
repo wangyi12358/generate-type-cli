@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package base;
+
+message PaginationReq {
+  int32 current = 1;
+  int32 pageSize = 2;
+  optional string keyword = 3;
+}
+
+message SortReq {
+  string field = 1;
+  string order = 2;
+}
+
+message SuccessRes {
+  string success = 1;
+  string code = 2;
+}

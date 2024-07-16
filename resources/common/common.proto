@@ -2,10 +2,65 @@ syntax = "proto3";
 
 package common;
 
-import "google/protobuf/timestamp.proto";
+message DictListRes {
+  string name = 1;
+  string value = 2;
+  string attr = 3;
+}
 
-message User {
+message DictRes {
+  string code = 1;
+  string name = 2;
+  repeated DictListRes list = 3;
+}
+
+message DictsReq {
+  string languageCode = 1;
+}
+
+message DictsRes {
+  repeated DictRes list = 1;
+}
+
+message AttachmentReq {
   string id = 1;
-  google.protobuf.Timestamp createdAt = 2;
-  google.protobuf.Timestamp updatedAt = 3;
+  string filename = 2;
+  string blobName = 3;
+  string type = 4;
+  string url = 5;
+  float  size = 6;
+  string entityId = 7;
+  string entityType = 8;
+  string createdId = 9;
+  string updatedId = 10;
+}
+
+message AttachmentRes {
+  string id = 1;
+  string filename = 2;
+  string blobName = 3;
+  string type = 4;
+  string url = 5;
+  float  size = 6;
+  string entityId = 7;
+  string entityType = 8;
+  string createdId = 9;
+  string updatedId = 10;
+  string createdAt = 11;
+  string updatedAt = 12;
+}
+
+message AttachmentsReq {
+  string entityId = 1;
+  string entityType = 2;
+}
+
+message AttachmentsRes {
+  repeated AttachmentRes attachments = 1;
+}
+
+service CommonService {
+  rpc Dicts(DictsReq) returns (DictsRes);
+
+  rpc Attachments(AttachmentsReq) returns (AttachmentsRes);
 }

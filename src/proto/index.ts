@@ -1,26 +1,26 @@
-import protoJs from 'protobufjs';
-import { join, resolve } from 'path';
 import { existsSync } from 'fs-extra';
+import { join, resolve } from 'path';
+import protoJs from 'protobufjs';
 
 import { ApiFile, DependencyType } from '../apiInterface';
 
-import {
-  isEnum,
-  isType,
-  isService,
-  typeGenInterface,
-  typeGenInterfaceModule,
-  enumGenEnum,
-  serviceGenApiFunction,
-  insertImport,
-} from './core';
+import { Options } from '../index';
 import {
   error,
   getRelativePathABDepth,
   log,
   recursionDirFindPath,
 } from '../utils';
-import { Options } from '../index';
+import {
+  enumGenEnum,
+  insertImport,
+  isEnum,
+  isService,
+  isType,
+  serviceGenApiFunction,
+  typeGenInterface,
+  typeGenInterfaceModule,
+} from './core';
 
 export function getProto2ApiData(options: Options) {
   log('Loading PB file ......');
@@ -104,6 +104,7 @@ export function getProto2ApiData(options: Options) {
     }
   };
   // outputFileSync("root.json", JSON.stringify(root.nested, null, 4));
+  console.log('root==', root)
   visitRoot(root);
   log('Convert PB data to api data');
   return pathPreprocessing(

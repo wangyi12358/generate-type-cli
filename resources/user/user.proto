@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package user;
+
+import "common.proto";
+
+message CreateUserReq {
+  string name = 1;
+  string email = 2;
+  string password =  3;
+  string createdId = 4;
+  string updatedId = 5;
+  string gender = 6;
+  optional string phone = 7;
+  optional string title = 8;
+  optional string profTitle = 9;
+  string type = 10;
+  string status = 11;
+}
+
+message UserRes {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+  string createdId = 5;
+  string updatedId = 6;
+  string createdAt = 7;
+  string updatedAt = 8;
+  string gender = 9;
+  string phone = 10;
+  string title = 11;
+  string profTitle = 12;
+  string type = 13;
+  string status = 14;
+}
+
+message LoginRes {
+  UserRes user = 1;
+}
+
+message UserPageRes {
+  repeated UserRes list = 1;
+  int32 total = 2;
+}
+
+message UserPageReq  {
+  int32 current = 1;
+  int32 pageSize = 2;
+}
+
+message LoginReq {
+  string email = 1;
+  string password = 2;
+}
+
+message FindByIdReq {
+  string id = 1;
+}
+
+message ChangePasswordReq {
+  string id = 1;
+  string password = 2;
+  string updatedId = 3;
+}
+
+message Success {
+  bool success = 1;
+}
+
+message ContractReq {
+  string startDate = 1;
+  string endDate = 2;
+  string remark = 3;
+}
+
+message CreateTenantReq {
+  string name = 1;
+  string website = 2;
+  string phone = 3;
+  string address = 4;
+  string brn = 5;
+  ContractReq contract = 6;
+  repeated CreateUserReq users = 7;
+  repeated common.AttachmentReq attachments = 8;
+}
+
+message TenantRes {
+  string id = 1;
+  string name = 2;
+  string phone = 3;
+  string address = 4;
+  string website = 5;
+  string brn = 6;
+  string createdId = 7;
+  string updatedId = 8;
+  string createdAt = 9;
+  string updatedAt = 10;
+}
+
+message CreateTenantRes {
+  TenantRes tenant = 1;
+}
+
+service UserService {
+  rpc UserPage (UserPageReq) returns (UserPageRes);
+  rpc CreateUser (CreateUserReq) returns (UserRes);
+  rpc Login (LoginReq) returns (LoginRes);
+  rpc FindById (FindByIdReq) returns (UserRes);
+  rpc ChangePassword (ChangePasswordReq) returns (Success);
+
+  rpc CreateTenant(CreateTenantReq) returns (CreateTenantRes);
+}
