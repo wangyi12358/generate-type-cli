@@ -66,8 +66,10 @@ export interface AttachmentsRes {
 export const CommonServiceName = 'CommonService';
 
 export interface ICommonService {
-  dicts: (request: DictsReq) => Promise<DictsRes>;
-  attachments: (request: AttachmentsReq) => Promise<AttachmentsRes>;
+  dicts: (request: DictsReq) => Promise<DictsRes> | Observable<DictsRes>;
+  attachments: (
+    request: AttachmentsReq
+  ) => Promise<AttachmentsRes> | Observable<AttachmentsRes>;
 }
 
 export interface ICommonServiceClient {

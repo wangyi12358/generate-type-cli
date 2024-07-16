@@ -110,12 +110,20 @@ export interface CreateTenantRes {
 export const UserServiceName = 'UserService';
 
 export interface IUserService {
-  userPage: (request: UserPageReq) => Promise<UserPageRes>;
-  createUser: (request: CreateUserReq) => Promise<UserRes>;
-  login: (request: LoginReq) => Promise<LoginRes>;
-  findById: (request: FindByIdReq) => Promise<UserRes>;
-  changePassword: (request: ChangePasswordReq) => Promise<Success>;
-  createTenant: (request: CreateTenantReq) => Promise<CreateTenantRes>;
+  userPage: (
+    request: UserPageReq
+  ) => Promise<UserPageRes> | Observable<UserPageRes>;
+  createUser: (
+    request: CreateUserReq
+  ) => Promise<UserRes> | Observable<UserRes>;
+  login: (request: LoginReq) => Promise<LoginRes> | Observable<LoginRes>;
+  findById: (request: FindByIdReq) => Promise<UserRes> | Observable<UserRes>;
+  changePassword: (
+    request: ChangePasswordReq
+  ) => Promise<Success> | Observable<Success>;
+  createTenant: (
+    request: CreateTenantReq
+  ) => Promise<CreateTenantRes> | Observable<CreateTenantRes>;
 }
 
 export interface IUserServiceClient {

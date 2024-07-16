@@ -276,24 +276,48 @@ export const DeviceServiceName = 'DeviceService';
 
 export interface IDeviceService {
   // site
-  sitePage: (request: SitePageReq) => Promise<SitePageRes>;
-  createSite: (request: CreateSiteReq) => Promise<SiteRes>;
-  updateSite: (request: UpdateSiteReq) => Promise<SiteRes>;
+  sitePage: (
+    request: SitePageReq
+  ) => Promise<SitePageRes> | Observable<SitePageRes>;
+  createSite: (
+    request: CreateSiteReq
+  ) => Promise<SiteRes> | Observable<SiteRes>;
+  updateSite: (
+    request: UpdateSiteReq
+  ) => Promise<SiteRes> | Observable<SiteRes>;
   // device
-  devicePage: (request: DevicePageReq) => Promise<DevicePageRes>;
-  createDevice: (request: CreateDeviceReq) => Promise<DeviceRes>;
-  updateDevice: (request: UpdateDeviceReq) => Promise<DeviceRes>;
+  devicePage: (
+    request: DevicePageReq
+  ) => Promise<DevicePageRes> | Observable<DevicePageRes>;
+  createDevice: (
+    request: CreateDeviceReq
+  ) => Promise<DeviceRes> | Observable<DeviceRes>;
+  updateDevice: (
+    request: UpdateDeviceReq
+  ) => Promise<DeviceRes> | Observable<DeviceRes>;
   // instance
-  createInstance: (request: CreateInstanceReq) => Promise<InstanceRes>;
-  updateInstance: (request: InstanceRes) => Promise<InstanceRes>;
+  createInstance: (
+    request: CreateInstanceReq
+  ) => Promise<InstanceRes> | Observable<InstanceRes>;
+  updateInstance: (
+    request: InstanceRes
+  ) => Promise<InstanceRes> | Observable<InstanceRes>;
   // service
-  servicePage: (request: ServicePageReq) => Promise<ServicePageRes>;
-  createService: (request: CreateServiceReq) => Promise<ServiceRes>;
-  updateService: (request: UpdateServiceReq) => Promise<ServiceRes>;
+  servicePage: (
+    request: ServicePageReq
+  ) => Promise<ServicePageRes> | Observable<ServicePageRes>;
+  createService: (
+    request: CreateServiceReq
+  ) => Promise<ServiceRes> | Observable<ServiceRes>;
+  updateService: (
+    request: UpdateServiceReq
+  ) => Promise<ServiceRes> | Observable<ServiceRes>;
   // classify
-  classifyList: (request: {}) => Promise<ClassifyListRes>;
+  classifyList: (request: {}) =>
+    | Promise<ClassifyListRes>
+    | Observable<ClassifyListRes>;
   // type
-  typeList: (request: {}) => Promise<TypeListRes>;
+  typeList: (request: {}) => Promise<TypeListRes> | Observable<TypeListRes>;
 }
 
 export interface IDeviceServiceClient {

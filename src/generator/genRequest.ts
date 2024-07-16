@@ -63,13 +63,16 @@ export function renderFunction(
   list: ApiFunction[],
   returnType = 'Promise',
 ): string {
-
   return list
     .map((k) => {
       const reqStr = k.req.type
         ? `request: ${getType(k.req)}`
         : '';
-      return `${renderComment(k.comment)} ${firstUpperCase(k.name)}: (${reqStr}) => ${returnType}<${getType(k.res)}>`;
+      let returnStr = `${returnType}<${getType(k.res)}>`;
+      if (returnType === 'Promise') {
+        returnStr = `${returnType}<${getType(k.res)}> | Observable<${getType(k.res)}>`;
+      }
+      return `${renderComment(k.comment)} ${firstUpperCase(k.name)}: (${reqStr}) => ${returnStr}`;
     })
     .join('\n');
 }
