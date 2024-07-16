@@ -104,7 +104,6 @@ export function getProto2ApiData(options: Options) {
     }
   };
   // outputFileSync("root.json", JSON.stringify(root.nested, null, 4));
-  console.log('root==', root)
   visitRoot(root);
   log('Convert PB data to api data');
   return pathPreprocessing(
